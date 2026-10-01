@@ -31,7 +31,6 @@ const gifs = [
 let firstChoice = null;
 let secondChoice = null;
 let cardsLeftToMatch = gifs.length / 2;
-let boardLocked = true;
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
