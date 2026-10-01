@@ -5,10 +5,21 @@
     <title>eikon parcel starter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="scss/main.scss" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Memory Game</h1>
-    <div id="board"></div>
+    <div class="container">
+      <div class="game-info">
+        <h1 class="title">Memory Game</h1>
+        <button class="start-button">Start</button>
+      </div>
+      <div id="board"></div>
+    </div>
 
     <script src="js/main.js" type="module"></script>
   </body>

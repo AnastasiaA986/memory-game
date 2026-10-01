@@ -8,6 +8,7 @@ import gif7 from "url:../gifs/animation7.gif";
 import gif8 from "url:../gifs/animation8.gif";
 
 const board = document.querySelector("#board");
+
 const gifs = [
   gif1,
   gif2,
@@ -29,11 +30,8 @@ const gifs = [
 
 let firstChoice = null;
 let secondChoice = null;
-let cardsLeftToMatch = gifs.length / 2; //quantite des paires pour gagner
-let boardLocked = true; //bloque le tableau avant le debut du jeu
-
-const startButton = document.createElement("button");
-startButton.textContent = "Start";
+let cardsLeftToMatch = gifs.length / 2;
+let boardLocked = true;
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -50,6 +48,18 @@ gifs.forEach((gif) => {
   const card = document.createElement("div");
   card.classList.add("card", "hidden");
   card.dataset.gif = gif;
+
+  const startButton = document.querySelector(".start-button");
+  startButton.addEventListener("click", () => {
+    gifs.forEach((gif) => {
+      card.classList.remove("hidden");
+    });
+    setTimeout(() => {
+      gifs.forEach((gif) => {
+        card.classList.add("hidden");
+      });
+    }, 2000);
+  });
 
   const img = document.createElement("img");
   img.src = gif;
