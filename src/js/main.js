@@ -1,35 +1,35 @@
-const board = document.querySelector("#board");
+import gif1 from "url:../gifs/animation1.gif";
+import gif2 from "url:../gifs/animation2.gif";
+import gif3 from "url:../gifs/animation3.gif";
+import gif4 from "url:../gifs/animation4.gif";
+import gif5 from "url:../gifs/animation5.gif";
+import gif6 from "url:../gifs/animation6.gif";
+import gif7 from "url:../gifs/animation7.gif";
+import gif8 from "url:../gifs/animation8.gif";
 
-const emojis = [
-  "👄",
-  "🧚‍♀️",
-  "🍋",
-  "🐢",
-  "🤍",
-  "♠️",
-  "🐤",
-  "🙊",
-  "🌽",
-  "🌵",
-  "🥥",
-  "🐝",
-  "👄",
-  "🧚‍♀️",
-  "🍋",
-  "🐢",
-  "🤍",
-  "♠️",
-  "🐤",
-  "🙊",
-  "🌽",
-  "🌵",
-  "🥥",
-  "🐝",
+const board = document.querySelector("#board");
+const gifs = [
+  gif1,
+  gif2,
+  gif3,
+  gif4,
+  gif5,
+  gif6,
+  gif7,
+  gif8,
+  gif1,
+  gif2,
+  gif3,
+  gif4,
+  gif5,
+  gif6,
+  gif7,
+  gif8,
 ];
 
 let firstChoice = null;
 let secondChoice = null;
-let cardsLeftToMatch = emojis.length / 2; //quantite des paires pour gagner
+let cardsLeftToMatch = gifs.length / 2; //quantite des paires pour gagner
 let boardLocked = true; //bloque le tableau avant le debut du jeu
 
 const startButton = document.createElement("button");
@@ -44,12 +44,17 @@ function shuffleArray(array) {
   }
 }
 
-shuffleArray(emojis);
+shuffleArray(gifs);
 
-emojis.forEach((emoji) => {
+gifs.forEach((gif) => {
   const card = document.createElement("div");
   card.classList.add("card", "hidden");
-  card.dataset.emoji = emoji;
+  card.dataset.gif = gif;
+
+  const img = document.createElement("img");
+  img.src = gif;
+  img.alt = "";
+  card.appendChild(img);
 
   card.addEventListener("click", () => {
     if (firstChoice === null) {
@@ -59,7 +64,7 @@ emojis.forEach((emoji) => {
       secondChoice = card;
       card.classList.remove("hidden");
 
-      if (firstChoice.dataset.emoji === secondChoice.dataset.emoji) {
+      if (firstChoice.dataset.gif === secondChoice.dataset.gif) {
         firstChoice = null;
         secondChoice = null;
         //quand on a trouvé une paire, il en reste une de moins
