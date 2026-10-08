@@ -1,13 +1,14 @@
-import gif1 from "url:../gifs/animation1.gif";
-import gif2 from "url:../gifs/animation2.gif";
-import gif3 from "url:../gifs/animation3.gif";
-import gif4 from "url:../gifs/animation4.gif";
-import gif5 from "url:../gifs/animation5.gif";
-import gif6 from "url:../gifs/animation6.gif";
-import gif7 from "url:../gifs/animation7.gif";
-import gif8 from "url:../gifs/animation8.gif";
+import gif1 from "url:../gifs/animation1.webp";
+import gif2 from "url:../gifs/animation2.webp";
+import gif3 from "url:../gifs/animation3.webp";
+import gif4 from "url:../gifs/animation4.webp";
+import gif5 from "url:../gifs/animation5.webp";
+import gif6 from "url:../gifs/animation6.webp";
+import gif7 from "url:../gifs/animation7.webp";
+import gif8 from "url:../gifs/animation8.webp";
 
 const board = document.querySelector("#board");
+const startButton = document.querySelector(".start-button");
 
 const gifs = [
   gif1,
@@ -33,9 +34,9 @@ let secondChoice = null;
 let cardsLeftToMatch = gifs.length / 2;
 
 function shuffleArray(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = array[i];
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = array[i];
     array[i] = array[j];
     array[j] = temp;
   }
@@ -48,24 +49,15 @@ gifs.forEach((gif) => {
   card.classList.add("card", "hidden");
   card.dataset.gif = gif;
 
-  const startButton = document.querySelector(".start-button");
-  startButton.addEventListener("click", () => {
-    gifs.forEach((gif) => {
-      card.classList.remove("hidden");
-    });
-    setTimeout(() => {
-      gifs.forEach((gif) => {
-        card.classList.add("hidden");
-      });
-    }, 2000);
-  });
-
   const img = document.createElement("img");
   img.src = gif;
   img.alt = "";
   card.appendChild(img);
 
   card.addEventListener("click", () => {
+    //si la carte n'a PAS(!) de classe "hidden" -- on fait rien
+    if (!card.classList.contains("hidden")) return;
+
     if (firstChoice === null) {
       firstChoice = card;
       card.classList.remove("hidden");
@@ -95,4 +87,18 @@ gifs.forEach((gif) => {
   });
 
   board.appendChild(card);
+});
+
+startButton.addEventListener("click", () => {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    card.classList.remove("hidden");
+  });
+
+  setTimeout(() => {
+    cards.forEach((card) => {
+      card.classList.add("hidden");
+    });
+  }, 2000);
 });
