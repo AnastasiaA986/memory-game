@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -16,7 +16,23 @@
     <div class="container">
       <div class="game-info">
         <h1 class="title">Memory Game</h1>
-        <button class="start-button">Start</button>
+
+        <!-- ÉCRAN DE DÉPART : choix du niveau + bouton Commencer -->
+        <div class="start-screen">
+          <div class="level">
+            <div class="level-choice">
+              <button class="level-button selected" data-level="facile">
+                Facile
+              </button>
+              <button class="level-button" data-level="difficile">
+                Difficile
+              </button>
+            </div>
+            <p class="level-hint">12 cartes · 6 paires</p>
+          </div>
+
+          <button class="start-button">Commencer →</button>
+        </div>
       </div>
       <div id="board"></div>
     </div>

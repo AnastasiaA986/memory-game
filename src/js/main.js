@@ -102,3 +102,29 @@ startButton.addEventListener("click", () => {
     });
   }, 2000);
 });
+
+// ---------- choix du niveau ----------
+const levelButtons = document.querySelectorAll(".level-button");
+const levelHint = document.querySelector(".level-hint");
+let level = "facile";
+
+levelButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    // on enlève "selected" de tous les boutons
+    levelButtons.forEach((otherButton) => {
+      otherButton.classList.remove("selected");
+    });
+    // on l'ajoute seulement au bouton cliqué
+    button.classList.add("selected");
+
+    // on lit l'étiquette data-level du bouton
+    level = button.dataset.level;
+
+    // on change le texte sous le choix
+    if (level === "facile") {
+      levelHint.textContent = "12 cartes · 6 paires";
+    } else {
+      levelHint.textContent = "16 cartes · 8 paires";
+    }
+  });
+});

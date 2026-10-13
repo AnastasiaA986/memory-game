@@ -1,32 +1,139 @@
+/* =========================================
+   1. BASE
+   ========================================= */
 body {
+  margin: 0;
   background-color: #f0f0f0;
 }
 
+/* =========================================
+   2. MISE EN PAGE
+   ========================================= */
 .container {
-  margin: 0 100px 0 100px;
-  min-height: 100vh;
+  background-image: url(/src/img/background-page.png);
+  background-repeat: no-repeat;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
+}
+
+/* colonne de gauche */
+.game-info {
+  margin: 0 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 80px;
 }
 
+/* =========================================
+   3. TITRE
+   ========================================= */
 .title {
-  font-family: "Hepta Slab", serif;
+  margin: 0;
+  font-family: "Montra", sans-serif;
+  font-weight: normal;
+  text-align: center;
+  line-height: 100%;
   color: #7d39eb;
-  font-size: 5rem;
-  margin-bottom: 40px;
+  font-size: 7.5rem;
+  letter-spacing: 0.75rem;
 }
 
+/* =========================================
+   4. ÉCRAN DE DÉPART
+   ========================================= */
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+/* ---- choix du niveau ---- */
+.level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.level-choice {
+  display: flex;
+  gap: 10px;
+  padding: 4px;
+  background-color: #ee4ab1;
+  border-radius: 25px;
+}
+
+.level-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Chivo Mono", monospace;
+  font-size: 1.5rem;
+  letter-spacing: 0.15rem;
+  cursor: pointer;
+}
+
+.level-button.selected {
+  background-color: white;
+  color: #ee4ab1;
+  font-weight: 500;
+}
+
+.level-hint {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  color: rgba(125, 57, 235, 0.8);
+  font-size: 1.125rem;
+  letter-spacing: 0.1rem;
+}
+
+/* ---- bouton Commencer ---- */
+.start-button {
+  height: 64px;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 50px;
+  background-color: #7d39eb;
+  color: white;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(125, 57, 235, 0.3);
+}
+
+.start-button:hover {
+  opacity: 0.8;
+}
+
+/* =========================================
+   5. PLATEAU
+   ========================================= */
 #board {
-  width: 800px;
-  height: 800px;
+  width: 100%;
+  max-width: min(800px, 100vh);
   margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
   gap: 5px;
 }
+
+/* =========================================
+   6. CARTES
+   ========================================= */
+
+/* carte retournée : on voit le GIF */
 .card {
   aspect-ratio: 1 / 1;
   background-color: rgb(169, 200, 211);
@@ -34,39 +141,164 @@ body {
 }
 
 .card img {
-  opacity: 1;
-  transition: opacity 0.5s;
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.card.hidden img {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s;
 }
 
+/* carte cachée : on voit le dos */
 .card.hidden {
   border: 1px solid rgba(238, 74, 177, 0.2);
   background-image: url(/src/gifs/cover.webp);
   background-size: cover;
 }
 
-.start-button {
-  display: flex;
-  padding: 8px 16px;
-  justify-content: center;
-  align-items: center;
-  font-family: "Hepta Slab", serif;
-  font-size: 1.5rem;
-  background-color: #ee4ab1;
-  color: white;
-  border: none;
-  cursor: pointer;
+.card.hidden img {
+  opacity: 0;
 }
 
-.start-button:hover {
-  background-color: #ca2a8f;
+/* =========================================
+   7. RESPONSIVE
+   ========================================= */
+
+/* ---- laptop (1440px et moins) — maquette 1440×900 ---- */
+@media (max-width: 1440px) {
+  .game-info,
+  .start-screen {
+    gap: 56px;
+  }
+
+  .title {
+    font-size: 6rem;
+    letter-spacing: 0.6rem;
+  }
+
+  .level {
+    gap: 12.8px;
+  }
+
+  .level-choice {
+    gap: 8px;
+    padding: 3.2px;
+  }
+
+  .level-button {
+    padding: 6.4px 12.8px;
+    font-size: 1.2rem;
+    letter-spacing: 0.12rem;
+  }
+
+  .level-hint {
+    font-size: 0.9rem;
+    letter-spacing: 0.09rem;
+  }
+
+  .start-button {
+    height: 51.2px;
+    padding: 12.8px 32px;
+    font-size: 1.2rem;
+    letter-spacing: 0.12rem;
+  }
+
+  #board {
+    max-width: min(711px, 100vh);
+    padding: 30px;
+    gap: 15px;
+  }
+}
+
+/* ---- tablette (1024px et moins) — maquette 744×1133 ---- */
+@media (max-width: 1024px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    min-height: 100vh;
+    padding: 42px 0 56px;
+    box-sizing: border-box;
+  }
+
+  .game-info,
+  .start-screen {
+    display: contents;
+  }
+
+  .title {
+    order: 1;
+  }
+  .level {
+    order: 2;
+  }
+  #board {
+    order: 3;
+  }
+  .start-button {
+    order: 4;
+  }
+
+  .title {
+    max-width: 426px; /* force « Memory / Game » sur 2 lignes */
+    font-size: 4.8rem;
+    letter-spacing: 0.48rem;
+  }
+
+  #board {
+    max-width: 664px;
+    padding: 28px;
+    gap: 14px;
+  }
+}
+
+/* ---- téléphone (600px et moins) — maquette 375×667 ---- */
+@media (max-width: 600px) {
+  .container {
+    justify-content: center; /* contenu centré verticalement */
+    gap: 16px;
+    padding: 56px 12px;
+  }
+
+  .title {
+    max-width: 240px;
+    font-size: 2.7rem;
+    letter-spacing: 0.27rem;
+  }
+
+  .level {
+    gap: 7px;
+  }
+
+  .level-choice {
+    gap: 4px;
+    padding: 2px;
+  }
+
+  .level-button {
+    padding: 3.5px 7px;
+    font-size: 0.65rem;
+    letter-spacing: 0.065rem;
+  }
+
+  .level-hint {
+    font-size: 0.49rem;
+    letter-spacing: 0.049rem;
+  }
+
+  .start-button {
+    height: 33px;
+    padding: 8px 20px;
+    font-size: 0.77rem;
+    letter-spacing: 0.077rem;
+    box-shadow: 0 6px 14px rgba(125, 57, 235, 0.3);
+  }
+
+  #board {
+    max-width: 351px;
+    padding: 15px;
+    gap: 7px;
+  }
 }
