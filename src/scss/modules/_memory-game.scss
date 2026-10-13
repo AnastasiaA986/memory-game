@@ -249,9 +249,58 @@ body {
 }
 
 /* =========================================
+   4c. POPUP MÉMORISATION
+   ========================================= */
+
+/* voile violet flou par-dessus le plateau */
+.memo-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+}
+
+/* la carte blanche au centre */
+.memo-popup {
+  padding: 28px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  border: 1px solid #e4dafb;
+  border-radius: 24px;
+  box-shadow: 0 20px 48px rgba(42, 14, 92, 0.35);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.memo-popup-title {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 700;
+  font-size: 1.625rem; /* 26px */
+  letter-spacing: 0.52px;
+  color: #7d39eb;
+}
+
+.memo-popup-text {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+  color: rgba(42, 14, 92, 0.8);
+}
+
+/* =========================================
    5. PLATEAU
    ========================================= */
 #board {
+  position: relative;
   width: 100%;
   max-width: min(800px, 100vh);
   margin: 0 auto;

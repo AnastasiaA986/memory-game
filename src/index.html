@@ -58,7 +58,15 @@
           <button class="replay-button">Rejouer</button>
         </div>
       </div>
-      <div id="board"></div>
+      <div id="board">
+        <!-- voile + popup par-dessus les cartes -->
+        <div class="memo-overlay" hidden>
+          <div class="memo-popup">
+            <p class="memo-popup-title">Mémorisez les cartes !</p>
+            <p class="memo-popup-text">3 secondes pour tout retenir</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/main.js" type="module"></script>

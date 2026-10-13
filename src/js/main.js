@@ -18,11 +18,13 @@ const startScreen = document.querySelector(".start-screen");
 const gameScreen = document.querySelector(".game-screen");
 const levelChip = document.querySelector(".level-chip");
 const timer = document.querySelector(".timer");
+const replayButton = document.querySelector(".replay-button");
 
 // pour compter les paires et les coups
 const pairsValue = document.querySelector(".pairs-value");
 const movesValue = document.querySelector(".moves-value");
 const timerValue = document.querySelector(".timer-value");
+const memoOverlay = document.querySelector(".memo-overlay");
 
 const gifs = [
   gif1,
@@ -188,19 +190,35 @@ startButton.addEventListener("click", () => {
   seconds = 0;
   updateTimer(); // affiche 00:00
 
-  cards.forEach((card) => {
-    card.classList.remove("hidden");
-  });
+  // ----- 1. on montre le popup -----
+  memoOverlay.hidden = false;
 
   setTimeout(() => {
+    // ----- 2. après 2 s : on cache le popup et on montre les cartes -----
+    memoOverlay.hidden = true;
+
     cards.forEach((card) => {
-      card.classList.add("hidden");
+      card.classList.remove("hidden");
     });
-    // les cartes sont cachées : en difficile, le chrono démarre
-    if (level === "difficile") {
-      startTimer();
-    }
-  }, 2000);
+
+    setTimeout(() => {
+      // ----- 3. après 3 s : on cache les cartes, la partie commence -----
+      cards.forEach((card) => {
+        card.classList.add("hidden");
+      });
+
+      // en difficile, le chrono démarre
+      if (level === "difficile") {
+        startTimer();
+      }
+    }, 3000);
+  }, 1500);
+});
+
+// ---------- bouton Rejouer ----------
+replayButton.addEventListener("click", () => {
+  // on recharge la page : tout revient comme au début
+  location.reload();
 });
 
 // ---------- choix du niveau ----------
