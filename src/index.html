@@ -31,6 +31,32 @@
 
           <button class="start-button" disabled>Commencer →</button>
         </div>
+
+        <!-- ÉCRAN DE JEU : chip du niveau + stats + bouton Rejouer -->
+        <div class="game-screen" hidden>
+          <p class="level-chip">Facile · 12 cartes</p>
+
+          <div class="stats">
+            <!-- chrono : seulement en niveau difficile -->
+            <div class="timer">
+              <p class="stat-label">Temps</p>
+              <p class="timer-value">00:00</p>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat">
+                <p class="stat-label">Paires</p>
+                <p class="stat-value pairs-value">0/6</p>
+              </div>
+              <div class="stat">
+                <p class="stat-label">Coups</p>
+                <p class="stat-value moves-value">0</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="replay-button">Rejouer</button>
+        </div>
       </div>
       <div id="board"></div>
     </div>

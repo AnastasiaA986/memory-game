@@ -6,6 +6,10 @@ body {
   background-color: #f0f0f0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 /* =========================================
    2. MISE EN PAGE
    ========================================= */
@@ -118,6 +122,130 @@ body {
 .start-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* =========================================
+   4b. ÉCRAN DE JEU
+   ========================================= */
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* titre plus petit pendant la partie */
+.game-info.in-game {
+  gap: 40px;
+}
+
+.game-info.in-game .title {
+  max-width: 313px; /* « Memory / Game » sur 2 lignes */
+  font-size: 4rem; /* 64px */
+  letter-spacing: 0.4rem;
+}
+
+/* ---- chip du niveau ---- */
+.level-chip {
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background-color: #ee4ab1;
+  color: white;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 500;
+  font-size: 1.125rem; /* 18px */
+  letter-spacing: 0.1125rem;
+  text-transform: uppercase;
+}
+
+/* ---- stats ---- */
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-row {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  width: 150px;
+  padding: 16px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background-color: white;
+  border: 1.5px solid rgba(125, 57, 235, 0.2);
+  border-radius: 16px;
+}
+
+.stat-label {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  font-size: 0.875rem; /* 14px */
+  letter-spacing: 0.0875rem;
+  text-transform: uppercase;
+  color: rgba(125, 57, 235, 0.7);
+}
+
+.stat-value {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 500;
+  font-size: 2.5rem; /* 40px */
+  color: #7d39eb;
+}
+
+/* ---- chrono (niveau difficile) ---- */
+.timer {
+  width: 320px;
+  padding: 20px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background-color: #d5ff45;
+  border-radius: 20px;
+}
+
+.timer .stat-label {
+  color: rgba(125, 57, 235, 0.8);
+}
+
+.timer-value {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 500;
+  font-size: 4rem; /* 64px */
+  color: #7d39eb;
+}
+
+/* ---- bouton Rejouer ---- */
+.replay-button {
+  width: 150px;
+  padding: 18px 0;
+  border: none;
+  border-radius: 999px;
+  background-color: #7d39eb;
+  color: white;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 500;
+  font-size: 1.25rem; /* 20px */
+  letter-spacing: 0.125rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(125, 57, 235, 0.3);
+}
+
+.replay-button:hover {
+  opacity: 0.8;
 }
 
 /* =========================================

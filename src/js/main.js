@@ -12,6 +12,17 @@ const startButton = document.querySelector(".start-button");
 const levelButtons = document.querySelectorAll(".level-button");
 const levelHint = document.querySelector(".level-hint");
 
+//écran de jeu
+const gameInfo = document.querySelector(".game-info");
+const startScreen = document.querySelector(".start-screen");
+const gameScreen = document.querySelector(".game-screen");
+const levelChip = document.querySelector(".level-chip");
+const timer = document.querySelector(".timer");
+
+// pour compter les paires et les coups
+const pairsValue = document.querySelector(".pairs-value");
+const movesValue = document.querySelector(".moves-value");
+
 const gifs = [
   gif1,
   gif2,
@@ -39,6 +50,10 @@ let firstChoice = null;
 let secondChoice = null;
 let cardsLeftToMatch = 6; // au départ : niveau facile = 6 paires
 
+let totalPairs = 6; // nombre de paires du niveau (6 ou 8)
+let pairsFound = 0; // paires trouvées
+let moves = 0; // coups joués
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -49,6 +64,12 @@ function shuffleArray(array) {
 }
 
 shuffleArray(gifs);
+
+// on affiche les chiffres à jour dans les cartes "Paires" et "Coups"
+function updateStats() {
+  pairsValue.textContent = pairsFound + "/" + totalPairs;
+  movesValue.textContent = moves;
+}
 
 gifs.forEach((gif) => {
   const card = document.createElement("div");
@@ -79,11 +100,20 @@ gifs.forEach((gif) => {
       secondChoice = card;
       card.classList.remove("hidden");
 
+      // deux cartes retournées = un coup
+      moves = moves + 1;
+      updateStats();
+
       if (firstChoice.dataset.gif === secondChoice.dataset.gif) {
         firstChoice = null;
         secondChoice = null;
         //quand on a trouvé une paire, il en reste une de moins
         cardsLeftToMatch = cardsLeftToMatch - 1;
+
+        // une paire de plus
+        pairsFound = pairsFound + 1;
+        updateStats();
+
         if (cardsLeftToMatch === 0) {
           setTimeout(() => {
             window.alert("Bravo! Vous avez gagné!");
@@ -106,6 +136,25 @@ gifs.forEach((gif) => {
 startButton.addEventListener("click", () => {
   const cards = document.querySelectorAll(".card");
 
+  // ----- on change d'écran -----
+  startScreen.hidden = true; // on cache le choix du niveau
+  gameScreen.hidden = false; // on montre l'écran de jeu
+  gameInfo.classList.add("in-game"); // titre plus petit
+
+  // ----- chip + chrono selon le niveau -----
+  if (level === "facile") {
+    levelChip.textContent = "Facile · 12 cartes";
+    timer.hidden = true; // pas de chrono en facile
+  } else {
+    levelChip.textContent = "Difficile · 16 cartes";
+    timer.hidden = false; // chrono en difficile
+  }
+
+  // ----- on remet les compteurs à zéro -----
+  pairsFound = 0;
+  moves = 0;
+  updateStats();
+
   cards.forEach((card) => {
     card.classList.remove("hidden");
   });
@@ -121,8 +170,6 @@ startButton.addEventListener("click", () => {
 
 levelButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    level = button.dataset.level;
-
     // on enlève "selected" de tous les boutons
     levelButtons.forEach((otherButton) => {
       otherButton.classList.remove("selected");
@@ -142,6 +189,7 @@ levelButtons.forEach((button) => {
       // ----- niveau facile : 12 cartes -----
       levelHint.textContent = "12 cartes · 6 paires";
       cardsLeftToMatch = 6;
+      totalPairs = 6;
 
       // on cache les cartes en trop (gif7 et gif8)
       cards.forEach((card) => {
@@ -155,6 +203,7 @@ levelButtons.forEach((button) => {
       // ----- niveau difficile : 16 cartes -----
       levelHint.textContent = "16 cartes · 8 paires";
       cardsLeftToMatch = 8;
+      totalPairs = 8;
 
       // on montre toutes les cartes
       cards.forEach((card) => {
