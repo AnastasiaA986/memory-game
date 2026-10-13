@@ -297,6 +297,49 @@ body {
 }
 
 /* =========================================
+   4d. POPUP DE VICTOIRE
+   ========================================= */
+
+/* voile un peu plus clair que celui de mémorisation */
+.win-overlay {
+  position: fixed; /* tout l'écran, pas seulement le plateau */
+  z-index: 10; /* au-dessus de tout */
+  border-radius: 0; /* pas de coins arrondis sur tout l'écran */
+  background-color: rgba(42, 14, 92, 0.4);
+  backdrop-filter: blur(3px);
+}
+
+/* plus de place autour du texte */
+.win-popup {
+  padding: 36px 80px;
+  gap: 14px;
+}
+
+/* badge rose « Partie terminée » */
+.win-badge {
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background-color: #ee4ab1;
+  color: white;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 500;
+  font-size: 0.75rem; /* 12px */
+  letter-spacing: 0.075rem;
+  text-transform: uppercase;
+}
+
+/* grand « Bravo! » */
+.win-title {
+  margin: 0;
+  font-family: "Chivo Mono", monospace;
+  font-weight: 700;
+  font-size: 2.5rem; /* 40px */
+  letter-spacing: 0.1rem;
+  color: #7d39eb;
+}
+
+/* =========================================
    5. PLATEAU
    ========================================= */
 #board {

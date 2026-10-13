@@ -24,7 +24,11 @@ const replayButton = document.querySelector(".replay-button");
 const pairsValue = document.querySelector(".pairs-value");
 const movesValue = document.querySelector(".moves-value");
 const timerValue = document.querySelector(".timer-value");
+
+//popups
 const memoOverlay = document.querySelector(".memo-overlay");
+const winOverlay = document.querySelector(".win-overlay");
+const winReplayButton = document.querySelector(".win-replay-button");
 
 const gifs = [
   gif1,
@@ -148,7 +152,8 @@ gifs.forEach((gif) => {
         if (cardsLeftToMatch === 0) {
           stopTimer(); // partie gagnée : on arrête le chrono
           setTimeout(() => {
-            window.alert("Bravo! Vous avez gagné!");
+            // on montre le popup de victoire
+            winOverlay.hidden = false;
           }, 800);
         }
       } else {
@@ -202,7 +207,7 @@ startButton.addEventListener("click", () => {
     });
 
     setTimeout(() => {
-      // ----- 3. après 3 s : on cache les cartes, la partie commence -----
+      // ----- 3. après 1 s : on cache les cartes, la partie commence -----
       cards.forEach((card) => {
         card.classList.add("hidden");
       });
@@ -211,13 +216,17 @@ startButton.addEventListener("click", () => {
       if (level === "difficile") {
         startTimer();
       }
-    }, 3000);
+    }, 1000);
   }, 1500);
 });
 
 // ---------- bouton Rejouer ----------
 replayButton.addEventListener("click", () => {
   // on recharge la page : tout revient comme au début
+  location.reload();
+});
+// bouton Rejouer dans le popup de victoire
+winReplayButton.addEventListener("click", () => {
   location.reload();
 });
 
