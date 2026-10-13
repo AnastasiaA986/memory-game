@@ -34,7 +34,7 @@ const gifs = [
 // les GIFs qu'on n'utilise PAS en niveau facile
 const extraGifs = [gif7, gif8];
 
-let level = "facile";
+let level = null;
 let firstChoice = null;
 let secondChoice = null;
 let cardsLeftToMatch = 6; // au départ : niveau facile = 6 paires
@@ -121,6 +121,8 @@ startButton.addEventListener("click", () => {
 
 levelButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    level = button.dataset.level;
+
     // on enlève "selected" de tous les boutons
     levelButtons.forEach((otherButton) => {
       otherButton.classList.remove("selected");
@@ -130,6 +132,8 @@ levelButtons.forEach((button) => {
 
     // on lit l'étiquette data-level du bouton
     level = button.dataset.level;
+    // un niveau est choisi : on active le bouton Commencer
+    startButton.disabled = false;
 
     // toutes les cartes du plateau
     const cards = document.querySelectorAll(".card");
