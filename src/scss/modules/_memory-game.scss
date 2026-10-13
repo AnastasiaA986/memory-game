@@ -390,8 +390,9 @@ body {
    7. RESPONSIVE
    ========================================= */
 
-/* ---- laptop (1440px et moins) — maquette 1440×900 ---- */
+/* ---- laptop (1440px et moins) — maquettes 1440×900 ---- */
 @media (max-width: 1440px) {
+  /* ----- écran de départ ----- */
   .game-info,
   .start-screen {
     gap: 56px;
@@ -434,9 +435,73 @@ body {
     padding: 30px;
     gap: 15px;
   }
+
+  /* ----- écran de jeu ----- */
+  .game-screen,
+  .game-info.in-game {
+    gap: 32px;
+  }
+
+  .game-info.in-game .title {
+    max-width: 250px;
+    font-size: 3.2rem; /* 51.2px */
+    letter-spacing: 0.32rem;
+  }
+
+  .level-chip {
+    padding: 6.4px 12.8px;
+    font-size: 0.9rem; /* 14.4px */
+    letter-spacing: 0.09rem;
+  }
+
+  .stats {
+    gap: 12.8px;
+  }
+
+  .stat-row {
+    gap: 16px;
+  }
+
+  .stat {
+    width: 120px;
+    padding: 12.8px 0;
+    gap: 3.2px;
+    border-width: 1.2px;
+    border-radius: 12.8px;
+  }
+
+  .stat-label {
+    font-size: 0.7rem; /* 11.2px */
+    letter-spacing: 0.07rem;
+  }
+
+  .stat-value {
+    font-size: 2rem; /* 32px */
+  }
+
+  .timer {
+    width: 256px;
+    padding: 16px 0;
+    gap: 3.2px;
+    border-radius: 16px;
+  }
+
+  .timer-value {
+    font-size: 3.2rem; /* 51.2px */
+  }
+
+  .replay-button {
+    width: 120px;
+    padding: 14.4px 0;
+    font-size: 1rem; /* 16px */
+    letter-spacing: 0.1rem;
+  }
 }
 
-/* ---- tablette (1024px et moins) — maquette 744×1133 ---- */
+/* ---- tablette (1024px et moins) — maquettes 744×1133 ----
+   Une seule colonne. display: contents « dissout » les blocs
+   .game-info, .start-screen et .game-screen : leurs enfants
+   deviennent des éléments de .container et on les range avec order. */
 @media (max-width: 1024px) {
   .container {
     display: flex;
@@ -449,27 +514,53 @@ body {
   }
 
   .game-info,
-  .start-screen {
+  .start-screen,
+  .game-screen {
     display: contents;
   }
 
+  /* ordre : titre → niveau / chip → stats → cartes → bouton */
   .title {
     order: 1;
   }
-  .level {
+  .level,
+  .level-chip {
     order: 2;
   }
-  #board {
+  .stats {
     order: 3;
   }
-  .start-button {
+  #board {
     order: 4;
   }
+  .start-button,
+  .game-screen .replay-button {
+    order: 5;
+  }
 
+  /* titre de l'écran de départ */
   .title {
-    max-width: 426px; /* force « Memory / Game » sur 2 lignes */
+    max-width: 426px; /* « Memory / Game » sur 2 lignes */
     font-size: 4.8rem;
     letter-spacing: 0.48rem;
+  }
+
+  /* titre pendant la partie */
+  .game-info.in-game .title {
+    max-width: 201px;
+    font-size: 2.56rem; /* 40.96px */
+    letter-spacing: 0.256rem;
+  }
+
+  /* titre → chip → stats : 24px au lieu de 32px */
+  .level-chip,
+  .stats {
+    margin-top: -8px;
+  }
+
+  /* chrono et stats côte à côte */
+  .stats {
+    flex-direction: row;
   }
 
   #board {
@@ -479,7 +570,7 @@ body {
   }
 }
 
-/* ---- téléphone (600px et moins) — maquette 375×667 ---- */
+/* ---- téléphone (600px et moins) — maquettes 375×667 ---- */
 @media (max-width: 600px) {
   .container {
     justify-content: center; /* contenu centré verticalement */
@@ -487,6 +578,7 @@ body {
     padding: 56px 12px;
   }
 
+  /* ----- écran de départ ----- */
   .title {
     max-width: 240px;
     font-size: 2.7rem;
@@ -525,5 +617,91 @@ body {
     max-width: 351px;
     padding: 15px;
     gap: 7px;
+  }
+
+  /* ----- écran de jeu ----- */
+  .game-info.in-game .title {
+    max-width: 141px;
+    font-size: 1.8rem; /* 28.8px */
+    letter-spacing: 0.18rem;
+  }
+
+  /* titre → chip → stats : 12px au lieu de 16px */
+  .level-chip,
+  .stats {
+    margin-top: -4px;
+  }
+
+  .level-chip {
+    padding: 4.4px 8.8px;
+    font-size: 0.62rem; /* ≈10px */
+    letter-spacing: 0.062rem;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat-row {
+    gap: 10px;
+  }
+
+  .stat {
+    width: 75px;
+    padding: 8px 0;
+    gap: 2px;
+    border-width: 0.75px;
+    border-radius: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.4375rem; /* 7px */
+    letter-spacing: 0.044rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem; /* 20px */
+  }
+
+  .timer {
+    width: 160px;
+    padding: 10px 0;
+    gap: 2px;
+    border-radius: 10px;
+  }
+
+  .timer-value {
+    font-size: 2rem; /* 32px */
+  }
+
+  .game-screen .replay-button {
+    width: 82.5px;
+    padding: 9.9px 0;
+    font-size: 0.6875rem; /* 11px */
+    letter-spacing: 0.069rem;
+    box-shadow: 0 5.5px 13px rgba(125, 57, 235, 0.3);
+  }
+
+  /* ----- popups : plus petits pour tenir sur le plateau ----- */
+  .memo-popup {
+    padding: 16px 20px;
+    gap: 6px;
+  }
+
+  .memo-popup-title {
+    font-size: 1.1rem;
+  }
+
+  .memo-popup-text {
+    font-size: 0.75rem;
+  }
+
+  .win-popup {
+    padding: 24px 40px;
+    gap: 10px;
+  }
+
+  .win-title {
+    font-size: 1.75rem;
   }
 }

@@ -65,6 +65,9 @@ let moves = 0; // coups joués
 let seconds = 0; // secondes écoulées
 let timerInterval = null; // le chrono qui tourne
 
+// est-ce qu'on peut cliquer sur les cartes ?
+let gameStarted = false;
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -125,6 +128,9 @@ gifs.forEach((gif) => {
   card.appendChild(img);
 
   card.addEventListener("click", () => {
+    // la partie n'a pas commencé : on ne fait rien
+    if (!gameStarted) return;
+
     //si la carte n'a PAS(!) de classe "hidden" -- on fait rien
     if (!card.classList.contains("hidden")) return;
 
@@ -211,6 +217,9 @@ startButton.addEventListener("click", () => {
       cards.forEach((card) => {
         card.classList.add("hidden");
       });
+
+      // les cartes sont cachées : on peut jouer
+      gameStarted = true;
 
       // en difficile, le chrono démarre
       if (level === "difficile") {
