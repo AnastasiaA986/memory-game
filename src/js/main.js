@@ -9,6 +9,8 @@ import gif8 from "url:../gifs/animation8.webp";
 
 const board = document.querySelector("#board");
 const startButton = document.querySelector(".start-button");
+const levelButtons = document.querySelectorAll(".level-button");
+const levelHint = document.querySelector(".level-hint");
 
 const gifs = [
   gif1,
@@ -29,9 +31,13 @@ const gifs = [
   gif8,
 ];
 
+// les GIFs qu'on n'utilise PAS en niveau facile
+const extraGifs = [gif7, gif8];
+
+let level = "facile";
 let firstChoice = null;
 let secondChoice = null;
-let cardsLeftToMatch = gifs.length / 2;
+let cardsLeftToMatch = 6; // au départ : niveau facile = 6 paires
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -48,6 +54,14 @@ gifs.forEach((gif) => {
   const card = document.createElement("div");
   card.classList.add("card", "hidden");
   card.dataset.gif = gif;
+
+  // est-ce que cette carte est en trop pour le niveau facile ?
+  const isExtra = extraGifs.includes(gif);
+
+  // au départ on est en niveau facile : on cache les cartes en trop
+  if (isExtra) {
+    card.style.display = "none";
+  }
 
   const img = document.createElement("img");
   img.src = gif;
@@ -104,9 +118,6 @@ startButton.addEventListener("click", () => {
 });
 
 // ---------- choix du niveau ----------
-const levelButtons = document.querySelectorAll(".level-button");
-const levelHint = document.querySelector(".level-hint");
-let level = "facile";
 
 levelButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -120,11 +131,31 @@ levelButtons.forEach((button) => {
     // on lit l'étiquette data-level du bouton
     level = button.dataset.level;
 
-    // on change le texte sous le choix
+    // toutes les cartes du plateau
+    const cards = document.querySelectorAll(".card");
+
     if (level === "facile") {
+      // ----- niveau facile : 12 cartes -----
       levelHint.textContent = "12 cartes · 6 paires";
+      cardsLeftToMatch = 6;
+
+      // on cache les cartes en trop (gif7 et gif8)
+      cards.forEach((card) => {
+        const isExtra = extraGifs.includes(card.dataset.gif);
+
+        if (isExtra) {
+          card.style.display = "none";
+        }
+      });
     } else {
+      // ----- niveau difficile : 16 cartes -----
       levelHint.textContent = "16 cartes · 8 paires";
+      cardsLeftToMatch = 8;
+
+      // on montre toutes les cartes
+      cards.forEach((card) => {
+        card.style.display = "";
+      });
     }
   });
 });
