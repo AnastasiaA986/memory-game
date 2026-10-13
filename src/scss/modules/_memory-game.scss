@@ -95,11 +95,14 @@ body {
   font-family: "Chivo Mono", monospace;
   color: rgba(125, 57, 235, 0.8);
   font-size: 1.125rem;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.1125rem; /* 10 % comme dans la maquette */
 }
 
-/* ---- bouton Commencer ---- */
-.start-button {
+/* ---- bouton principal : Commencer ET Rejouer ----
+   Dans la maquette, Rejouer est le même composant « Main button »
+   que Commencer, seul le texte change. */
+.start-button,
+.replay-button {
   height: 64px;
   padding: 16px 40px;
   border: none;
@@ -115,11 +118,13 @@ body {
   box-shadow: 0 10px 24px rgba(125, 57, 235, 0.3);
 }
 
-.start-button:hover {
+.start-button:hover,
+.replay-button:hover {
   opacity: 0.8;
 }
 
-.start-button:disabled {
+.start-button:disabled,
+.replay-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -227,32 +232,11 @@ body {
   color: #7d39eb;
 }
 
-/* ---- bouton Rejouer ---- */
-.replay-button {
-  width: 150px;
-  padding: 18px 0;
-  border: none;
-  border-radius: 999px;
-  background-color: #7d39eb;
-  color: white;
-  font-family: "Chivo Mono", monospace;
-  font-weight: 500;
-  font-size: 1.25rem; /* 20px */
-  letter-spacing: 0.125rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 10px 24px rgba(125, 57, 235, 0.3);
-}
-
-.replay-button:hover {
-  opacity: 0.8;
-}
-
 /* =========================================
    4c. POPUP MÉMORISATION
    ========================================= */
 
-/* voile violet flou par-dessus le plateau */
+/* voile flou par-dessus le plateau */
 .memo-overlay {
   position: absolute;
   inset: 0;
@@ -274,7 +258,7 @@ body {
   background-color: white;
   border: 1px solid #e4dafb;
   border-radius: 24px;
-  box-shadow: 0 20px 48px rgba(42, 14, 92, 0.35);
+  box-shadow: 0 20px 48px rgba(42, 14, 92, 0.3);
   text-align: center;
   white-space: nowrap;
 }
@@ -329,6 +313,11 @@ body {
   text-transform: uppercase;
 }
 
+/* « Vous avez gagné » : un peu plus foncé que le texte de mémorisation */
+.win-popup .memo-popup-text {
+  color: rgba(42, 14, 92, 0.9);
+}
+
 /* grand « Bravo! » */
 .win-title {
   margin: 0;
@@ -345,13 +334,13 @@ body {
 #board {
   position: relative;
   width: 100%;
-  max-width: min(800px, 100vh);
+  max-width: min(988px, 100vh); /* maquette 1920 : 988px */
   margin: 0 auto;
-  padding: 20px;
+  padding: 42px;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
+  gap: 21px;
 }
 
 /* =========================================
@@ -363,6 +352,7 @@ body {
   aspect-ratio: 1 / 1;
   background-color: rgb(169, 200, 211);
   position: relative;
+  box-shadow: 0 10px 24px rgba(125, 57, 235, 0.2);
 }
 
 .card img {
@@ -375,9 +365,8 @@ body {
   transition: opacity 0.5s;
 }
 
-/* carte cachée : on voit le dos */
+/* carte cachée : on voit le dos (pas de bordure dans la maquette) */
 .card.hidden {
-  border: 1px solid rgba(238, 74, 177, 0.2);
   background-image: url(/src/gifs/cover.webp);
   background-size: cover;
 }
@@ -423,17 +412,23 @@ body {
     letter-spacing: 0.09rem;
   }
 
-  .start-button {
+  .start-button,
+  .replay-button {
     height: 51.2px;
     padding: 12.8px 32px;
     font-size: 1.2rem;
     letter-spacing: 0.12rem;
+    box-shadow: 0 8px 19.2px rgba(125, 57, 235, 0.3);
   }
 
   #board {
     max-width: min(711px, 100vh);
     padding: 30px;
     gap: 15px;
+  }
+
+  .card {
+    box-shadow: 0 7.2px 17.3px rgba(125, 57, 235, 0.2);
   }
 
   /* ----- écran de jeu ----- */
@@ -489,13 +484,6 @@ body {
   .timer-value {
     font-size: 3.2rem; /* 51.2px */
   }
-
-  .replay-button {
-    width: 120px;
-    padding: 14.4px 0;
-    font-size: 1rem; /* 16px */
-    letter-spacing: 0.1rem;
-  }
 }
 
 /* ---- tablette (1024px et moins) — maquettes 744×1133 ----
@@ -507,6 +495,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* contenu centré verticalement, comme dans la maquette */
     gap: 32px;
     min-height: 100vh;
     padding: 42px 0 56px;
@@ -561,12 +550,50 @@ body {
   /* chrono et stats côte à côte */
   .stats {
     flex-direction: row;
+    gap: 15.4px;
+  }
+
+  /* stats : maquette tablette (×1,2 par rapport au laptop) */
+  .stat-row {
+    gap: 19.2px;
+  }
+
+  .stat {
+    width: 144px;
+    padding: 15.4px 0;
+    gap: 3.8px;
+    border-width: 1.4px;
+    border-radius: 15.4px;
+  }
+
+  .stat-label {
+    font-size: 0.84rem; /* ≈13.4px */
+    letter-spacing: 0.084rem;
+  }
+
+  .stat-value {
+    font-size: 2.4rem; /* 38.4px */
+  }
+
+  .timer {
+    width: 307px;
+    padding: 19.2px 0;
+    gap: 3.8px;
+    border-radius: 19.2px;
+  }
+
+  .timer-value {
+    font-size: 3.84rem; /* ≈61.4px */
   }
 
   #board {
     max-width: 664px;
     padding: 28px;
     gap: 14px;
+  }
+
+  .card {
+    box-shadow: 0 6.7px 16.1px rgba(125, 57, 235, 0.2);
   }
 }
 
@@ -585,7 +612,7 @@ body {
     letter-spacing: 0.27rem;
   }
 
-  /* choix du niveau et bouton Commencer : +35 % (maquette 174×54 / 200×44) */
+  /* choix du niveau et bouton (maquette 174×54 / 200×44) */
   .level {
     gap: 9.5px;
   }
@@ -606,18 +633,24 @@ body {
     letter-spacing: 0.066rem;
   }
 
-  .start-button {
+  /* Commencer et Rejouer : même bouton */
+  .start-button,
+  .replay-button {
     height: 44px;
     padding: 10.8px 27px;
     font-size: 1.04rem; /* ≈16.6px */
     letter-spacing: 0.104rem;
-    box-shadow: 0 8px 19px rgba(125, 57, 235, 0.3);
+    box-shadow: 0 6.9px 16.6px rgba(125, 57, 235, 0.3);
   }
 
   #board {
     max-width: 351px;
     padding: 15px;
     gap: 7px;
+  }
+
+  .card {
+    box-shadow: 0 3.6px 8.5px rgba(125, 57, 235, 0.2);
   }
 
   /* ----- écran de jeu ----- */
@@ -638,8 +671,6 @@ body {
     font-size: 0.62rem; /* ≈10px */
     letter-spacing: 0.062rem;
   }
-
-  /* stats et Rejouer : +35 % comme l'écran de départ */
 
   .stats {
     gap: 13.5px;
@@ -676,14 +707,6 @@ body {
 
   .timer-value {
     font-size: 1.6875rem; /* 27px */
-  }
-
-  .game-screen .replay-button {
-    width: 111px;
-    padding: 13.4px 0;
-    font-size: 0.93rem; /* ≈14.9px */
-    letter-spacing: 0.093rem;
-    box-shadow: 0 7.4px 17.6px rgba(125, 57, 235, 0.3);
   }
 
   /* ----- popups : plus petits pour tenir sur le plateau ----- */
