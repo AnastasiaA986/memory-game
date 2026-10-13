@@ -22,6 +22,7 @@ const timer = document.querySelector(".timer");
 // pour compter les paires et les coups
 const pairsValue = document.querySelector(".pairs-value");
 const movesValue = document.querySelector(".moves-value");
+const timerValue = document.querySelector(".timer-value");
 
 const gifs = [
   gif1,
@@ -54,6 +55,10 @@ let totalPairs = 6; // nombre de paires du niveau (6 ou 8)
 let pairsFound = 0; // paires trouvées
 let moves = 0; // coups joués
 
+// timer
+let seconds = 0; // secondes écoulées
+let timerInterval = null; // le chrono qui tourne
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -69,6 +74,30 @@ shuffleArray(gifs);
 function updateStats() {
   pairsValue.textContent = pairsFound + "/" + totalPairs;
   movesValue.textContent = moves;
+}
+
+// on affiche le temps au format 00:00
+function updateTimer() {
+  const minutes = Math.floor(seconds / 60);
+  const restSeconds = seconds % 60;
+
+  timerValue.textContent =
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(restSeconds).padStart(2, "0");
+}
+
+// on lance le chrono : +1 seconde chaque seconde
+function startTimer() {
+  timerInterval = setInterval(() => {
+    seconds = seconds + 1;
+    updateTimer();
+  }, 1000);
+}
+
+// on arrête le chrono
+function stopTimer() {
+  clearInterval(timerInterval);
 }
 
 gifs.forEach((gif) => {
@@ -115,6 +144,7 @@ gifs.forEach((gif) => {
         updateStats();
 
         if (cardsLeftToMatch === 0) {
+          stopTimer(); // partie gagnée : on arrête le chrono
           setTimeout(() => {
             window.alert("Bravo! Vous avez gagné!");
           }, 800);
@@ -155,6 +185,9 @@ startButton.addEventListener("click", () => {
   moves = 0;
   updateStats();
 
+  seconds = 0;
+  updateTimer(); // affiche 00:00
+
   cards.forEach((card) => {
     card.classList.remove("hidden");
   });
@@ -163,6 +196,10 @@ startButton.addEventListener("click", () => {
     cards.forEach((card) => {
       card.classList.add("hidden");
     });
+    // les cartes sont cachées : en difficile, le chrono démarre
+    if (level === "difficile") {
+      startTimer();
+    }
   }, 2000);
 });
 
